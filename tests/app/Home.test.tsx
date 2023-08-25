@@ -1,15 +1,16 @@
-import { expect, test } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
-import Home from '../../src/app/page'
+import "@testing-library/jest-dom";
+import { describe, expect, it, afterEach } from "vitest";
+import { render, screen, cleanup } from "@testing-library/react";
+import Home from "../../src/app/page";
 
-test('home', () => {
-  render(<Home />)
-  const main = within(screen.getByRole('main'))
-  expect(
-    main.getByRole('heading', { level: 1, name: /welcome to next\.js!/i })
-  ).toBeDefined()
-
-  const footer = within(screen.getByRole('contentinfo'))
-  const link = within(footer.getByRole('link'))
-  expect(link.getByRole('img', { name: /vercel logo/i })).toBeDefined()
-})
+describe("HelloWorld component", () => {
+	afterEach(() => {
+		cleanup();
+	});
+	it("renders the correct text", () => {
+		render(<Home />);
+		const headline = screen.getByText(/Hello world/);
+		console.log(headline);
+		expect(headline).toBeInTheDocument();
+	});
+});
